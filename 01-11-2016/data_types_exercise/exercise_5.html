@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--Vasisht A. Shastry January 11, 2016-->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var erty = "Erty:Seidohl:Jan11:CodeCraft";
+		
+		var dave = "Dave:Gray:Sep16:CodeCraft";
+		
+		var instructors = [
+			erty.split(":"),
+			dave.split(":")
+		];
+		
+		//TODO: console.log Erty and Dave's last name and birthday with a dash: "Name - Birthday"
+        for(var j = 0; j<instructors.length;j++)
+        {
+            console.log("Name " + instructors[j][1] + " - Birthday " + instructors[j][2])
+        }
+
+	</script>
+</body>
+</html>

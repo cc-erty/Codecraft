@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--Vasisht A. Shastry January 11, 2016-->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		/*
+		* Exercise Two
+		* Why does the following output true?
+		*/
+        
+        //The variable a has a boolean value of true. Since the variable b also has a boolean value of true the result is true
+        
+
+		var a = "false";
+		var b = true;
+
+		// "&&" is "and"
+		console.log (a && b);
+		console.log (b && a);
+
+		/*
+		* Bonus Question: Why does (b && a) log "false"?
+		*/
+
+        //(b && a) returns the string "false" as according to the Mozilla Dev Guide a && b returns a if it can be converted to false, otherwise returns b. Hence the output is the string "false'
+	</script>
+</body>
+</html>
