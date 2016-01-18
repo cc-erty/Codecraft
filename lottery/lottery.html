@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--Vasisht A. Shastry-->
+<!--January 17, 2014-->
+<!--Lottery Assignment-->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lottery Game</title>
+</head>
+
+<body>
+    <input id='nameField1' type='number' min="1" max="10">
+    <input id='nameField2' type='number' min="1" max="10">
+    <input id='nameField3' type='number' min="1" max="10">
+    <input id='nameField4' type='number' min="1" max="10">
+
+    <button id='subButton'>Enter your lucky numbers!</button>
+
+    <div>
+        <span>Winning Numbers: </span>
+        <span id='winning_numbers'></span>
+    </div>
+
+    <div>
+        <span>Amount won(lost): </span>
+        <span id='amount_won'></span>
+    </div>
+
+    <div>
+        <span>Current Balance:</span>
+        <span id='current_balance'></span>
+    </div>
+
+    <script>
+        var balance = 10;
+        var ticketPrice = 2;
+        document.getElementById('current_balance').innerHTML = balance;
+        document.getElementById('subButton').onclick = function () {
+
+            if (inputValidation() && enoughToPlay()) {
+                playLotto();
+            } else if (!inputValidation() && enoughToPlay()) {
+                alert("Either invalid or duplicate numbers entered");
+            } else if (!enoughToPlay()) {
+                alert("Not enough money to play");
+            }
+        };
+
+        var enoughToPlay = function () {
+            if (balance < 2) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        var inputValidation = function () {
+            var firstDigit = document.getElementById('nameField1').value;
+            var secondDigit = document.getElementById('nameField2').value;
+            var thirdDigit = document.getElementById('nameField3').value;
+            var fourthDigit = document.getElementById('nameField4').value;
+
+            if (firstDigit == "" || secondDigit == "" || thirdDigit == "" || fourthDigit == "") {
+                return false;
+            } else {
+                return areDistinct([parseInt(firstDigit), parseInt(secondDigit), parseInt(thirdDigit), parseInt(fourthDigit)]);
+            }
+        }
+
+        var areDistinct = function (array) {
+            var tempArray = array;
+            if (tempArray[0] == tempArray[1] || tempArray[0] == tempArray[2] || tempArray[0] == tempArray[3] || tempArray[1] == tempArray[2] || tempArray[1] == tempArray[3] || tempArray[2] == tempArray[3]) {
+                return false;
+            } else {
+                return outOfBounds(tempArray);
+            }
+        };
+
+        var outOfBounds = function (array1) {
+            var tempArray = array1;
+            if (tempArray[0] < 1 || tempArray[0] > 10 || tempArray[1] < 1 || tempArray[1] > 10 || tempArray[2] < 1 || tempArray[2] > 10 || tempArray[3] < 1 || tempArray[3] > 10) {
+                return false;
+            } else {
+                return tempArray;
+            };
+        };
+
+        var matchCount = function (array1, array2) {
+            var testCount = 0;
+            for (var j = 0; j < array1.length; j++) {
+                for (var k = 0; k < array2.length; k++) {
+                    if (array1[j] == array2[k]) {
+                        testCount += 1;
+                    }
+                }
+            }
+
+            if (testCount == 0) {
+                return -2;
+            } else {
+                console.log(testCount)
+                return Math.pow(2, Math.pow(testCount, 2)) - ticketPrice;
+            }
+        };
+
+        var lottoNums = function () {
+            var d = false;
+            while (d == false) {
+                var num1 = Math.floor((Math.random() * 10) + 1);
+                var num2 = Math.floor((Math.random() * 10) + 1);
+                var num3 = Math.floor((Math.random() * 10) + 1);
+                var num4 = Math.floor((Math.random() * 10) + 1);
+                d = areDistinct([num1, num2, num3, num4])
+            }
+            return [num1, num2, num3, num4];
+        };
+
+        var playLotto = function () {
+            var tempNums = lottoNums();
+            document.getElementById('winning_numbers').innerHTML = tempNums;
+            document.getElementById('amount_won').innerHTML = matchCount(inputValidation(), tempNums);
+            balance = balance + matchCount(inputValidation(), tempNums);
+            document.getElementById('current_balance').innerHTML = balance;
+        };
+    </script>
+</body>
+</html>
